@@ -17,6 +17,7 @@ $border-radius: 20px;
   padding: 0;
   box-sizing: border-box;
   color: white;
+  font-family: $font-body;
 }
 
 body {
@@ -115,3 +116,102 @@ body {
     text-align: center;
   }
 }
+
+h1,
+h2,
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.weather {
+  position: relative;
+  &__result {
+    display: grid;
+    gap: 1em;
+  }
+
+  &__location {
+    text-transform: uppercase;
+    text-align: center;
+    &::before {
+      content: url('../assets/Location.svg');
+      margin-right: 8px;
+    }
+  }
+
+  &__icon {
+    height: 125px;
+    width: 125px;
+  }
+
+  &__text {
+    &--group {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &--primary {
+      font-family: $font-heading;
+      font-size: 32px;
+    }
+
+    &-small {
+      font-size: 24px;
+    }
+    &--main {
+      font-size: 48px;
+      text-align: center;
+    }
+
+    &--sub {
+      margin-top: -5px;
+    }
+
+    &--bar {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__body {
+    &--primary {
+      @include flex_center;
+      justify-content: space-between;
+    }
+  }
+}
+
+.forecast {
+  &__container {
+    height: 190px;
+    width: 310px;
+    background-color: #03045e;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border-radius: $border-radius;
+  }
+
+  &__header {
+    padding: 12px 0 0 24px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  &__body {
+    @include flex_center;
+    justify-content: space-evenly;
+
+    text-align: center;
+  }
+  &__icon {
+    height: 44px;
+  }
+
+  &__card {
+    display: grid;
+    gap: 8px;
+  }
+}
+// TODO: gets pngs
