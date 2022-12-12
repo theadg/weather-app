@@ -1,5 +1,6 @@
 import './styles/style.scss';
-import clearDay from './assets/sunny.png';
+import clearDay from './assets/conditions/clearDay.png';
+import Icons from './components/icons';
 
 const weatherLocation = document.querySelector('#weatherLocation');
 const getWeatherButton = document.querySelector('#getWeather');
@@ -12,21 +13,44 @@ const locationCloud = document.querySelector('#locationCloud');
 const locationHumidity = document.querySelector('#locationHumidity');
 const locationWind = document.querySelector('#locationWind');
 
+const ct = require('countries-and-timezones');
+
+export const getDate = (country) => {
+  const currentCountry = ct.getCountry(country);
+  // getting current time
+  const currentDate = new Date()
+    .toLocaleTimeString('en-US', {
+      timeZone: currentCountry.timezones[0],
+    })
+    .toString();
+
+  const timeOfDay = currentDate.charAt(currentDate.length - 2);
+
+  return currentDate;
+};
+
 const dummyForecastIcon = Array.from(
   document.querySelectorAll('.forecast__icon')
 );
 
-dummyForecastIcon.forEach((icon) => (icon.src = clearDay));
+dummyForecastIcon.forEach((icon) => {
+  icon.src = clearDay;
+});
 
 const setLocationData = (data) => {
   console.log(data);
+  getDate(data.sys.country);
   locationName.textContent = data.name;
   locationTemp.textContent = `${Math.round(data.main.temp)}°`;
-  locationFeelsLike.textContent = `Feels like ${data.main['feels_like']}°`;
+  locationFeelsLike.textContent = `Feels like ${data.main.feels_like}°`;
   locationCloud.textContent = `${data.clouds.all}%`;
 
   locationHumidity.textContent = `${data.main.humidity}%`;
   locationWind.textContent = `${data.wind.speed * 10} km`;
+
+  // TODO: replace this with function
+  // weatherIcon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  weatherIcon.src = Icons();
 };
 const getWeather = async (location, unit = 'metric') => {
   if (location === '') {
@@ -66,7 +90,7 @@ const getForecast = async (location, unit = 'metric') => {
 // };
 
 window.onload = () => {
-  getWeather('Taytay');
+  getWeather('London');
   getForecast('Taytay');
 };
 
@@ -80,4 +104,6 @@ window.onload = () => {
 // };
 
 console.log(clearDay);
-weatherIcon.src = clearDay;
+// weatherIcon.src = clearDay;
+
+// TODO: import pngs and sort proper icon
