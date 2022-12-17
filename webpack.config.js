@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddCharsetWebpackPlugin = require('add-charset-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -24,7 +25,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.s?[ac]ss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
@@ -50,6 +51,10 @@ module.exports = {
       filename: 'index.html',
       template: 'src/template.html',
       favicon: 'src/assets/favicon.ico',
+    }),
+
+    new AddCharsetWebpackPlugin({
+      charset: 'utf-8',
     }),
   ],
 };
