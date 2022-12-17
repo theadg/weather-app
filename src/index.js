@@ -25,7 +25,7 @@ let searchState = false;
 
 const animateCSS = (element, animation, prefix = 'animate__') =>
   // We create a Promise and return it
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     const animationName = `${prefix}${animation}`;
     const node = document.querySelector(element);
     console.log(node);
@@ -68,9 +68,8 @@ const showWeather = (result) => {
 const hideWeather = (result) => {
   if (!result.classList.contains('hidden')) {
     if (searchState) {
-      console.log(searchState);
-      animateCSS('.container__head', 'slideOutDown');
       animateCSS('.weather__result', 'slideOutDownCustom');
+      animateCSS('.container__head', 'slideOutDown');
 
       weatherResult.onanimationend = () => {
         weatherResult.classList.add('hidden');
