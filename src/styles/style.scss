@@ -18,6 +18,8 @@ $border-radius: 20px;
   box-sizing: border-box;
   color: white;
   font-family: $font-body;
+  animation-duration: 500ms;
+  // outline: 1px solid #f00 !important;
 }
 
 body {
@@ -41,10 +43,16 @@ body {
     border-radius: $border-radius;
     position: relative;
 
+    margin-bottom: 30px;
     &::before {
       content: url('../assets/Logo.svg');
       position: absolute;
       top: -80px;
+    }
+
+    &--inner {
+      height: 210px;
+      width: 310px;
     }
   }
 
@@ -219,5 +227,6 @@ p {
 }
 
 .hidden {
+  opacity: 0s;
   display: none;
 }
