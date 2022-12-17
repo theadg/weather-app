@@ -19,6 +19,7 @@ $border-radius: 20px;
   color: white;
   font-family: $font-body;
   animation-duration: 500ms;
+  overflow: hidden;
   // outline: 1px solid #f00 !important;
 }
 
@@ -30,6 +31,21 @@ body {
   @include flex_center;
 }
 
+.container {
+  &__head {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: 105px 105px 105px;
+    grid-template-columns: 105px 105px 105px;
+    margin-bottom: 30px;
+  }
+
+  &__logo {
+    grid-column: 2 / 3;
+    z-index: 1;
+    margin-top: 16px;
+  }
+}
 .search {
   &__container {
     height: 210px;
@@ -43,12 +59,12 @@ body {
     border-radius: $border-radius;
     position: relative;
 
-    margin-bottom: 30px;
-    &::before {
-      content: url('../assets/Logo.svg');
-      position: absolute;
-      top: -80px;
-    }
+    grid-row: 2/4;
+    // &::before {
+    //   content: url('../assets/Logo.svg');
+    //   position: absolute;
+    //   top: -80px;
+    // }
 
     &--inner {
       height: 210px;
@@ -230,3 +246,5 @@ p {
   opacity: 0s;
   display: none;
 }
+
+// TODO: fix overflow on animation
