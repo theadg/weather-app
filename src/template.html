@@ -15,28 +15,31 @@
   </head>
   <body>
     <div id="container">
-      <div class="search__container">
-        <div class="search__header">
-          <h1 class="search__logo">WeatherCon</h1>
-          <h3 class="search__text--sub">Typical Weather App</h3>
-        </div>
+      <div class="container__head">
+        <img src="" class="container__logo" alt="Weather Icon" id="logo" />
 
-        <div class="search__group">
-          <div class="search__bar--group">
-            <input
-              type="text"
-              name="search"
-              id="searchBar"
-              class="search__bar"
-              placeholder="Enter City Name"
-            />
-            <button class="search__button" id="getWeather"></button>
+        <div class="search__container">
+          <div class="search__header">
+            <h1 class="search__logo">WeatherCon</h1>
+            <h3 class="search__text--sub">Typical Weather App</h3>
           </div>
 
-          <p class="search__error"></p>
+          <div class="search__group">
+            <div class="search__bar--group">
+              <input
+                type="text"
+                name="search"
+                id="searchBar"
+                class="search__bar"
+                placeholder="Enter City Name"
+              />
+              <button class="search__button" id="getWeather"></button>
+            </div>
+
+            <p class="search__error"></p>
+          </div>
         </div>
       </div>
-
       <div class="weather__result hidden">
         <h1 class="weather__location" id="locationName">Angono</h1>
         <!-- weather logo and weather temperature container -->
