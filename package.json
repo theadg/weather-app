@@ -39,6 +39,8 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "countries-and-timezones": "^3.4.0",
+    "date-fns": "^2.29.3",
     "watch": "^1.0.2"
   }
 }
