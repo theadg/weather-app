@@ -2,7 +2,11 @@ import './styles/style.scss';
 import clearDay from './assets/conditions/clearDay.png';
 import Icons from './components/icons';
 import Today from './components/today';
+import 'animate.css';
 
+const ct = require('countries-and-timezones');
+
+const searchContainer = document.querySelector('.search__container');
 const weatherLocation = document.querySelector('#searchBar');
 const getWeatherButton = document.querySelector('#getWeather');
 const weatherIcon = document.querySelector('#weatherIcon');
@@ -16,7 +20,25 @@ const locationCloud = document.querySelector('#locationCloud');
 const locationHumidity = document.querySelector('#locationHumidity');
 const locationWind = document.querySelector('#locationWind');
 
-const ct = require('countries-and-timezones');
+let searchState = false;
+
+const animateCSS = (element, animation, prefix = 'animate__') =>
+  // We create a Promise and return it
+  new Promise((resolve, reject) => {
+    const animationName = `${prefix}${animation}`;
+    const node = document.querySelector(element);
+    console.log(node);
+
+    node.classList.add(`${prefix}animated`, animationName);
+    // When the animation ends, we clean the classes and resolve the Promise
+    function handleAnimationEnd(event) {
+      event.stopPropagation();
+      node.classList.remove(`${prefix}animated`, animationName);
+      resolve('Animation ended');
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd, { once: true });
+  });
 
 export const getDate = (country) => {
   const currentCountry = ct.getCountry(country);
@@ -60,14 +82,11 @@ const setLocationData = (weatherData, weatherForecast) => {
   );
 
   showWeather(weatherResult);
-  // console.log(weatherResult.classList, 'SHOULD HAVE BEEN REMOVED');
-  // searchError.textContent = '';
+  animateCSS('.weather__result', 'slideInUp');
+  animateCSS('.search__container', 'slideInUp');
 };
 
 const getForecast = async (location, unit = 'metric') => {
-  // if (location === '') {
-  //   searchError.textContent = 'City not found 😔';
-  // } else {
   //   this gets the data as a promise from the api
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${unit}&APPID=5cefd4fab8a0f1d0f39eb7f546ef57ea`
@@ -77,17 +96,32 @@ const getForecast = async (location, unit = 'metric') => {
   const weatherData = await response.json();
 
   return weatherData;
-  // }
 };
 
-const hideWeather = (result) => {
-  if (!result.classList.contains('hidden')) result.classList.add('hidden');
+const hideWeather = (result, elementName) => {
+  if (!result.classList.contains('hidden')) {
+    if (searchState) {
+      console.log(searchState);
+      animateCSS('.search__container', 'slideOutDown');
+      animateCSS('.weather__result', 'slideOutDownCustom');
+
+      weatherResult.onanimationend = () => {
+        weatherResult.classList.add('hidden');
+      };
+    } else {
+      result.classList.add('hidden');
+    }
+  }
 };
 
 const getWeather = async (location, unit = 'metric') => {
   if (location === '') {
     searchError.textContent = 'City not found 😔';
-    hideWeather(weatherResult);
+    animateCSS('.search__container', 'headShake');
+    // searchContainer.classList.add('animate__headShake');
+    // console.log(searchContainer);
+    hideWeather(weatherResult, '.weather__result');
+    searchState = false;
   } else {
     try {
       //   this gets the data as a promise from the api
@@ -99,33 +133,21 @@ const getWeather = async (location, unit = 'metric') => {
       const weatherData = await response.json();
       const weatherForecast = await getForecast(location);
       setLocationData(weatherData, weatherForecast);
+      searchError.textContent = '';
+      searchState = true;
     } catch (err) {
       searchError.textContent = 'City not found 😔';
-      hideWeather(weatherResult);
+      animateCSS('.search__container', 'headShake');
+      searchState = false;
+      hideWeather(weatherResult, '.weather__result');
     }
   }
 };
 
 window.onload = () => {
-  // getWeather('Angono');
-  // getForecast('Taytay');
+  animateCSS('.search__container', 'slideInDown');
 };
 
 getWeatherButton.onclick = () => {
   getWeather(weatherLocation.value);
 };
-
-// get to display the data
-// https://api.openweathermap.org/data/2.5/weather?q=London&APPID=5cefd4fab8a0f1d0f39eb7f546ef57ea
-
-// trying to use the icon
-
-// const getWeatherIcon = async (iconNumber) => {
-//     `http://openweathermap.org/img/wn/${iconNumber}@2x.png`
-// };
-
-// console.log(clearDay);
-// weatherIcon.src = clearDay;
-
-// TODO: enable proper searching
-// TODo: animation
