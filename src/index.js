@@ -2,11 +2,12 @@ import './styles/style.scss';
 import clearDay from './assets/conditions/clearDay.png';
 import Icons from './components/icons';
 import Today from './components/today';
+import Logo from './assets/Logo.svg';
 import 'animate.css';
 
 const ct = require('countries-and-timezones');
 
-const searchContainer = document.querySelector('.search__container');
+const logo = document.querySelector('#logo');
 const weatherLocation = document.querySelector('#searchBar');
 const getWeatherButton = document.querySelector('#getWeather');
 const weatherIcon = document.querySelector('#weatherIcon');
@@ -63,6 +64,21 @@ dummyForecastIcon.forEach((icon) => {
 const showWeather = (result) => {
   if (result.classList.contains('hidden')) result.classList.remove('hidden');
 };
+
+const hideWeather = (result) => {
+  if (!result.classList.contains('hidden')) {
+    if (searchState) {
+      console.log(searchState);
+      animateCSS('.container__head', 'slideOutDown');
+      animateCSS('.weather__result', 'slideOutDownCustom');
+
+      weatherResult.onanimationend = () => {
+        weatherResult.classList.add('hidden');
+      };
+    }
+  }
+};
+
 const setLocationData = (weatherData, weatherForecast) => {
   console.log(weatherData);
   locationName.textContent = weatherData.name;
@@ -81,9 +97,10 @@ const setLocationData = (weatherData, weatherForecast) => {
     getDate(weatherData.sys.country)
   );
 
-  showWeather(weatherResult);
+  // showWeather(weatherResult);
   animateCSS('.weather__result', 'slideInUp');
-  animateCSS('.search__container', 'slideInUp');
+  animateCSS('.container__head', 'slideInUp');
+  showWeather(weatherResult);
 };
 
 const getForecast = async (location, unit = 'metric') => {
@@ -98,32 +115,18 @@ const getForecast = async (location, unit = 'metric') => {
   return weatherData;
 };
 
-const hideWeather = (result, elementName) => {
-  if (!result.classList.contains('hidden')) {
-    if (searchState) {
-      console.log(searchState);
-      animateCSS('.search__container', 'slideOutDown');
-      animateCSS('.weather__result', 'slideOutDownCustom');
-
-      weatherResult.onanimationend = () => {
-        weatherResult.classList.add('hidden');
-      };
-    } else {
-      result.classList.add('hidden');
-    }
-  }
-};
-
 const getWeather = async (location, unit = 'metric') => {
   if (location === '') {
     searchError.textContent = 'City not found 😔';
-    animateCSS('.search__container', 'headShake');
+    animateCSS('.container__head', 'headShake');
     // searchContainer.classList.add('animate__headShake');
     // console.log(searchContainer);
     hideWeather(weatherResult, '.weather__result');
     searchState = false;
   } else {
     try {
+      searchState = true;
+
       //   this gets the data as a promise from the api
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${unit}&APPID=5cefd4fab8a0f1d0f39eb7f546ef57ea`
@@ -134,10 +137,9 @@ const getWeather = async (location, unit = 'metric') => {
       const weatherForecast = await getForecast(location);
       setLocationData(weatherData, weatherForecast);
       searchError.textContent = '';
-      searchState = true;
     } catch (err) {
       searchError.textContent = 'City not found 😔';
-      animateCSS('.search__container', 'headShake');
+      animateCSS('.container__head', 'headShake');
       searchState = false;
       hideWeather(weatherResult, '.weather__result');
     }
@@ -145,7 +147,8 @@ const getWeather = async (location, unit = 'metric') => {
 };
 
 window.onload = () => {
-  animateCSS('.search__container', 'slideInDown');
+  animateCSS('.container__head', 'slideInDown');
+  logo.src = Logo;
 };
 
 getWeatherButton.onclick = () => {
