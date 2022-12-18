@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="icon" href="favicon.ico"><script defer src="main.js"></script></head>
+  <body>
+    <div id="container">
+      <div class="container__head">
+        <img src="" class="container__logo" alt="Weather Icon" id="logo" />
+
+        <div class="search__container">
+          <div class="search__header">
+            <h1 class="search__logo">WeatherCon</h1>
+            <h3 class="search__text--sub">Typical Weather App</h3>
+          </div>
+
+          <div class="search__group">
+            <div class="search__bar--group">
+              <input
+                type="text"
+                name="search"
+                id="searchBar"
+                class="search__bar"
+                placeholder="Enter City Name"
+              />
+              <button class="search__button" id="getWeather"></button>
+            </div>
+
+            <p class="search__error"></p>
+          </div>
+        </div>
+      </div>
+      <div class="weather__result hidden">
+        <div class="weather__body--head">
+          <h1 class="weather__location" id="locationName">Angono</h1>
+          <!-- weather logo and weather temperature container -->
+          <div class="weather__body--primary">
+            <img
+              src=""
+              class="weather__icon"
+              alt="Weather Condition tnga"
+              id="weatherIcon"
+            />
+
+            <div class="weather__text--group">
+              <h2
+                class="weather__text--primary weather__text--main"
+                id="locationTemp"
+              ></h2>
+              <p id="locationFeelsLike" class="weather__text--sub">°</p>
+            </div>
+          </div>
+        </div>
+        <!-- weather bar  -->
+        <div class="weather__body--secondary">
+          <div class="weather__text--bar">
+            <div class="weather__text--group">
+              <h3 class="weather__text--primary" id="locationCloud"></h3>
+              <p class="weather__text--body">Cloudiness</p>
+            </div>
+
+            <div class="weather__text--group">
+              <h3 class="weather__text--primary" id="locationHumidity"></h3>
+              <p class="weather__text--body">Humidity</p>
+            </div>
+
+            <div class="weather__text--group">
+              <h3
+                class="weather__text--primary weather__text--small"
+                id="locationWind"
+              ></h3>
+              <p class="weather__text--body">Wind Speed</p>
+            </div>
+          </div>
+          <!-- weather forecast today -->
+          <div class="forecast__container">
+            <div class="forecast__header">
+              <p class="">Today</p>
+            </div>
+
+            <div class="forecast__body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
