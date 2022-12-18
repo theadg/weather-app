@@ -166,8 +166,8 @@ p {
   }
 
   &__icon {
-    height: 125px;
-    width: 140px;
+    height: 130px;
+    width: 130px;
   }
 
   &__text {
@@ -204,6 +204,16 @@ p {
     &--primary {
       @include flex_center;
       justify-content: space-between;
+    }
+
+    &--head,
+    &--secondary {
+      @include flex_center;
+      flex-direction: column;
+      gap: 16px;
+      & > * {
+        width: 100%;
+      }
     }
   }
 }
@@ -243,8 +253,47 @@ p {
 }
 
 .hidden {
-  opacity: 0s;
-  display: none;
+  display: none !important;
 }
 
-// TODO: fix overflow on animation
+@media screen and (min-width: 1024px) {
+  #container {
+    width: fit-content;
+    @include flex_center;
+    flex-direction: column;
+    // gap: 32px;
+  }
+
+  .weather {
+    &__result {
+      display: flex;
+      margin-top: 16px;
+      gap: 48px;
+    }
+
+    &__location {
+      font-size: 48px;
+      margin-bottom: 30px;
+      &::before {
+      }
+    }
+
+    &__body {
+      &--primary {
+        margin-bottom: 25px;
+      }
+    }
+
+    &__icon {
+      height: 130px;
+      width: 130px;
+    }
+
+    &__text {
+      &--group {
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
