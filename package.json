@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --watch",
     "dev": "webpack serve",
-    "watch": "npm run build"
+    "watch": "npm run build",
+    "deploy-demo": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
