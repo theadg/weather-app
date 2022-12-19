@@ -19,7 +19,6 @@ $border-radius: 20px;
   color: white;
   font-family: $font-body;
   animation-duration: 500ms;
-  overflow: hidden;
   // outline: 1px solid #f00 !important;
 }
 
@@ -154,6 +153,7 @@ p {
     display: grid;
     gap: 1em;
     transition: all 0.3s ease-in-out;
+    overflow: hidden;
   }
 
   &__location {
