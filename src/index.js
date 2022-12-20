@@ -61,18 +61,20 @@ dummyForecastIcon.forEach((icon) => {
   icon.src = clearDay;
 });
 
-const showWeather = (result) => {
-  if (result.classList.contains('hidden')) result.classList.remove('hidden');
+const showWeather = () => {
+  if (weatherResult.classList.contains('hidden'))
+    weatherResult.classList.remove('hidden');
 };
 
-const hideWeather = (result) => {
-  if (!result.classList.contains('hidden')) {
+const hideWeather = () => {
+  if (!weatherResult.classList.contains('hidden')) {
     if (searchState) {
       animateCSS('.weather__result', 'slideOutDownCustom');
       animateCSS('.container__head', 'slideOutDown');
 
       weatherResult.onanimationend = () => {
         weatherResult.classList.add('hidden');
+        console.log('why are you running');
       };
     }
   }
@@ -99,7 +101,7 @@ const setLocationData = (weatherData, weatherForecast) => {
   // showWeather(weatherResult);
   animateCSS('.weather__result', 'slideInUp');
   animateCSS('.container__head', 'slideInUp');
-  showWeather(weatherResult);
+  showWeather();
 };
 
 const getForecast = async (location, unit = 'metric') => {
@@ -111,6 +113,7 @@ const getForecast = async (location, unit = 'metric') => {
   //   this transforms the promise into usable data
   const weatherData = await response.json();
 
+  console.log(weatherData);
   return weatherData;
 };
 
@@ -152,4 +155,10 @@ window.onload = () => {
 
 getWeatherButton.onclick = () => {
   getWeather(weatherLocation.value);
+};
+
+weatherLocation.onkeypress = (e) => {
+  if (e.key === 'Enter') {
+    getWeather(weatherLocation.value);
+  }
 };
