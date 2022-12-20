@@ -23,9 +23,8 @@ const determineTime = (time, military) => {
 
 export default function Icons(condition, description, date, military = false) {
   let time = determineTime(date, military);
-  let fileName = 'tShowerLight';
+  let fileName = '';
   // console.log(date, time);
-
   // determining the icon based on condition and description
   if (condition === 'Clouds') {
     if (description === 'few clouds' || description === 'scattered clouds') {
@@ -53,10 +52,13 @@ export default function Icons(condition, description, date, military = false) {
     fileName = 'clear';
   }
 
+  console.log(fileName, time);
   //   const icon = require('../assets/conditions/' + fileName + time + '.png');
   const icon = require(`../assets/conditions/${fileName}${time}.png`);
 
+  console.log(icon);
   const currentWeatherIcon = icon;
+
   return currentWeatherIcon;
 }
 
